@@ -12,7 +12,14 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors({ origin: process.env.CLIENT_URL }));
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  'https://marg-software.vercel.app',
+  'http://localhost:3000',
+  'http://localhost:5173'
+].filter(Boolean) as string[];
+
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 
 connectDB();
